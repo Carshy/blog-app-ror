@@ -6,7 +6,7 @@ ruby '3.1.2'
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem 'rails', '~> 7.0.4'
-gem 'tzinfo-data'
+# gem 'tzinfo-data'
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
 gem 'sprockets-rails'
 
@@ -67,11 +67,10 @@ end
 
 # Testing using Rspec
 group :development, :test do
+  gem 'database_cleaner'
   gem 'ffi'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
-  gem "database_cleaner"
-  gem "rspec-rails"
 end
 
 group :test do

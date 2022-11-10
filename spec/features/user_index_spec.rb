@@ -3,8 +3,10 @@ require 'rails_helper'
 RSpec.describe 'Testing user index page', type: :feature do
   describe 'Get user index' do
     before(:each) do
-      @first_user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Mexico.')
-      @second_user = User.create(name: 'Lilly', photo: 'https://unsplash.com/photos/F_-0BxGuVvo', bio: 'Teacher from Poland.')
+      @first_user = User.create(name: 'Tom', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
+                                bio: 'Teacher from Mexico.')
+      @second_user = User.create(name: 'Lilly', photo: 'https://unsplash.com/photos/F_-0BxGuVvo',
+                                 bio: 'Teacher from Poland.')
     end
 
     scenario 'shows user content on screen' do
