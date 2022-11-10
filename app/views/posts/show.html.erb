@@ -1,7 +1,7 @@
-<h1> <%= @post.user.name %>'s Post <%= @post.id %> </h1>
+<h1>My first post</h1>
 <div class="user-post">
   <div class="current-post">
-    <p>Post <%= @post.id  %> by <%= @post.user.name %></p>
+    <p>Post <%= @post.id  %> by <%= @post.author.name %></p>
     <p><%= @post.text  %></p>
   </div>
   <p><span>Comments <%= @post.comments_counter  %></span>, <span>Likes <%= @post.likes_counter  %></span></p>
@@ -9,7 +9,7 @@
 
 <div>
   <% @post.comments.each do |comment| %>
-    <p><%= comment.user.name %> : <%= comment.text  %></p>
+    <p><%= comment.author.name %> : <%= comment.text  %></p>
   <% end %>
 </div>
 

@@ -13,7 +13,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    post = Post.new(title: post_params[:title], text: post_params[:text], user: current_user)
+    @post = Post.new(title: post_params[:title], text: post_params[:text], user: current_user)
     flash[:notice] = if post.save
                        'Post created successfully'
                      else
