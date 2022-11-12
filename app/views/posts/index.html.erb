@@ -6,12 +6,20 @@
     <p class="count-posts">Number of Posts: <%= @user.posts_counter %></p>
   </div>
 
-  <ul><% @user.posts.each do |post| %>
+  <ul><% @posts.each do |post| %>
     <li class="post-text">
       <%= link_to user_post_path(@user, post.id) do %>
         <p>Post :<%= post.id %></p>
       <% end %>
-      <p><%= post.text %></p>
+      <p>post.title</p>
+      <p>post.text</p>
+
+      <% if can? :destroy, Post %>
+        <%= form_with url: user_post_path(@user, post.id), method: :delete do |form| %>
+          <%= form.submit 'Delete post' %>
+        <% end %>
+      <% end %>
+
       <p class="post-comments">
         <span>Comments: <%= post.comments_counter %></span>, 
         <span>Likes: <%= post.likes_counter %></span>

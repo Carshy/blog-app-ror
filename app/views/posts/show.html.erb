@@ -9,7 +9,12 @@
 
 <div>
   <% @post.comments.each do |comment| %>
-    <p><%= comment.author.name %> : <%= comment.text  %></p>
+    <%= comment.author.name %> : <%= comment.text  %>
+    <% if can? :destroy, comment %>
+      <%= form_with url: user_post_comment_destroy_path, method: :delete do |form| %>
+      <%= form.submit 'Delete comment' %>
+      <% end %>
+    <% end %
   <% end %>
 </div>
 
