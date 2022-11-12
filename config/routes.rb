@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     end
   end
 
+  post 'auth/login', to: 'authentication#login'
+  post 'auth/signup', to: 'authentication#signup'
+
   root 'users#index'
   resources :users do
     resources :posts do

@@ -1,7 +1,25 @@
 class ApplicationController < ActionController::Base
+  
   protect_from_forgery with: :exception
-  before_action :authenticate_user!
+
+  skip_before_action :verify_authenticity_token
+  
+  # before_action :authenticate_user!
   before_action :update_allowed_parameters, if: :devise_controller?
+
+  include JsonWebToken
+
+  def authenticate_user
+    return unless request.headers['Authorization'].present?
+
+    begin
+      decoded = jwt_decode(request.headers['Authorization'])
+      @current_user = User.find(decoded[:user_id])
+    rescue JWT::DecodeError => e
+      render json: { errors: e.message }, status: :unauthorized
+    end
+  end
+
 
   protected
 

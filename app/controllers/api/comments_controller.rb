@@ -3,31 +3,23 @@ class Api::CommentsController < ApplicationController
   before_action :set_post, only: %i[create show index]
 
   def index
-    @id = current_user.id
-    @comment = Comment.new
-    render json: @comment
+    @comments = Comment.all
+    render json: @comments
   end
 
   def show
+    @comment = Comment.find(params[:id])
     render json: @comment
   end
 
-  def new
-    @post = Post.find(params[:post_id])
-    comments = @post.comments.build
-    render json: comments
-  end
-
   def create
-    post = Post.find(params[:id])
-    comment = Comment.new(user: current_user, post:, text: comments_params[:text])
-    respond_to do |format|
-      if comment.save
-        format.json { render :show, status: :created, location: comment }
-      else
-        format.json { render json: comment.errors, status: :unprocessable_entity }
-      end
+    comment = Comment.new(author: @user, post: @post, text: comments_params[:text])
+    if comment.save
+        render json: comment
+    else
+       render json: comment.errors, status: :unprocessable_entity
     end
+
   end
 
   def set_user
