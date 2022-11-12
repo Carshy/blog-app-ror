@@ -1,11 +1,9 @@
-<%= form_with model: @post, url: user_posts_url do |form| %>
-    <div>
-    <%= form.label :title %>
-    <%= form.text_field :title %>
-    </div>
-    <div>
-    <%= form.label :text %>
-    <%= form.text_area :text %>
-    </div>
-    <%= form.submit "Add Post" %>
+  
+  <%= form_with model: @post, url: user_posts_url do |f| %>
+    <%= f.label :title %>
+    <%= f.text_field :title %><br><br>
+
+    <%= f.label :text %>
+    <%= f.text_area :text %><br>
+    <%= f.submit "Add Post" %>
   <% end %>

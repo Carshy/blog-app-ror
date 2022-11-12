@@ -1,6 +1,8 @@
 class PostsController < ApplicationController
   load_and_authorize_resource
 
+  before_action :set_post, only: :show
+
   def index
     @user = User.find(params[:user_id])
     if current_user.nil?
@@ -14,24 +16,40 @@ class PostsController < ApplicationController
              end
   end
 
+  # def show
+  #   @user = User.find(params[:user_id])
+  #   @post = Post.find(params[:id])
+  # end
+
   def show
-    @user = User.find(params[:user_id])
-    @post = Post.find(params[:id])
   end
 
   def new
-    @id = current_user.id
     @post = Post.new
   end
 
   def create
-    @post = Post.new(title: post_params[:title], text: post_params[:text], user: current_user)
-    flash[:notice] = if post.save
-                       'Post created successfully'
-                     else
-                       'Error'
-                     end
-    redirect_to user_posts_path
+    @post = Post.new(post_params)
+    if @post.save
+      flash[:success] = 'Post Created Successfully'
+      redirect_to user_posts_url(@post)
+    else
+      render :new
+    end
+  end
+
+  # def create
+  #   @post = Post.new(title: post_params[:title], text: post_params[:text], user: current_user)
+  #   flash[:notice] = if post.save
+  #                      'Post created successfully'
+  #                    else
+  #                      'Error'
+  #                    end
+  #   redirect_to user_posts_path
+  # end
+
+  def set_post
+    @post = Post.find(params[:id])
   end
 
   private
