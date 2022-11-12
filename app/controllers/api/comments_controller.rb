@@ -15,11 +15,10 @@ class Api::CommentsController < ApplicationController
   def create
     comment = Comment.new(author: @user, post: @post, text: comments_params[:text])
     if comment.save
-        render json: comment
+      render json: comment
     else
-       render json: comment.errors, status: :unprocessable_entity
+      render json: comment.errors, status: :unprocessable_entity
     end
-
   end
 
   def set_user
