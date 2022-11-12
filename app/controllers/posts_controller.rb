@@ -16,12 +16,9 @@ class PostsController < ApplicationController
              end
   end
 
-  # def show
-  #   @user = User.find(params[:user_id])
-  #   @post = Post.find(params[:id])
-  # end
-
   def show
+    @user = User.find(params[:user_id])
+    @post = Post.find(params[:id])
   end
 
   def new
@@ -37,16 +34,6 @@ class PostsController < ApplicationController
       render :new
     end
   end
-
-  # def create
-  #   @post = Post.new(title: post_params[:title], text: post_params[:text], user: current_user)
-  #   flash[:notice] = if post.save
-  #                      'Post created successfully'
-  #                    else
-  #                      'Error'
-  #                    end
-  #   redirect_to user_posts_path
-  # end
 
   def set_post
     @post = Post.find(params[:id])
