@@ -82,3 +82,6 @@ end
 
 # Implementing devise
 gem 'devise'
+
+# add CanCanCan for authorization
+gem 'cancancan'

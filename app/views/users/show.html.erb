@@ -11,6 +11,9 @@
     <p><%= @user.bio %></p>
   </div>
 
+  <%= link_to "Add New Post", "/users/#{@user.id}/posts/new" %>
+
+
   <div>
     <div>
       <% @user.recent_posts.each do |post| %>
