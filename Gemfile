@@ -85,3 +85,9 @@ gem 'devise'
 
 # add CanCanCan for authorization
 gem 'cancancan'
+
+# Use jwt for token base authentication
+gem 'jwt'
+
+# Use active model has_secure_password
+gem 'bcrypt', '~> 3.1.7'
