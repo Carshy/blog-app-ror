@@ -1,19 +1,20 @@
 class PostsController < ApplicationController
   load_and_authorize_resource
 
-  before_action :set_post, only: :show
+  # before_action :set_post, only: :show
 
   def index
     @user = User.find(params[:user_id])
-    if current_user.nil?
-      redirect_to new_user_session_path
-      return
-    end
-    @posts = if current_user.role?
-               @user.posts.includes(:comments)
-             else
-               @user.posts.includes(:comments, :author)
-             end
+    @posts = @user.posts
+    # if current_user.nil?
+    # redirect_to new_user_session_path
+    # return
+    # end
+    # @posts = if current_user.role?
+    #            @user.posts.includes(:comments)
+    #          else
+    #            @user.posts.includes(:comments, :author)
+    #          end
   end
 
   def show
@@ -26,10 +27,10 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = Post.new(post_params)
+    @post = current_user.posts.new(post_params)
     if @post.save
       flash[:success] = 'Post Created Successfully'
-      redirect_to user_posts_url(@post)
+      redirect_to user_posts_path
     else
       render :new
     end
@@ -39,16 +40,16 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
   end
 
-  private
-
-  def post_params
-    params.require(:post).permit(:title, :text)
-  end
-
   def destroy
     @post = Post.find(params[:id])
     @user = User.find(params[:user_id])
     @post.destroy
-    redirect_to user_post_path(@user.id, @post.id)
+    redirect_to user_posts_path(@user.id, @post.id)
+  end
+
+  private
+
+  def post_params
+    params.require(:post).permit(:title, :text)
   end
 end
